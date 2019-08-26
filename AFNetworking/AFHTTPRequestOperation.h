@@ -22,6 +22,8 @@
 #import <Foundation/Foundation.h>
 #import "AFURLConnectionOperation.h"
 
+extern NSNotificationName AFFileDownloadedNotification;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

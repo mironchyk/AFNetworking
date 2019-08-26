@@ -21,6 +21,8 @@
 
 #import "AFHTTPRequestOperation.h"
 
+NSNotificationName AFFileDownloadedNotification = @"AFFileDownloadedNotification";
+
 static dispatch_queue_t http_request_operation_processing_queue() {
     static dispatch_queue_t af_http_request_operation_processing_queue;
     static dispatch_once_t onceToken;
@@ -124,6 +126,9 @@ static dispatch_group_t http_request_operation_completion_group() {
                     });
                 }
             } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:AFFileDownloadedNotification
+                                                                    object:self.request
+                                                                  userInfo:@{@"data" : self.responseData}];
                 id responseObject = self.responseObject;
                 if (self.error) {
                     if (failure) {
